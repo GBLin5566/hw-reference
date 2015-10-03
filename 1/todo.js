@@ -72,6 +72,10 @@ todoListElement.addEventListener('click', function(event) {
   // 判斷是不是 <button class="destroy">
   } else if (target && target.nodeName === 'BUTTON' && target.className === 'destroy') {
     var liNode = target.parentNode.parentNode;
+    if (liNode.className !== 'completed') {
+      count = count - 1;
+      showCountDisplay(count);
+    }
     liNode.parentNode.removeChild(liNode);
   }
 });
