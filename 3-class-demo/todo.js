@@ -1,29 +1,34 @@
 // TodoApp: 原本的 HTML
 class TodoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
   renderTodoItem(item) {
     return <TodoItem title={item.title} isCompleted={item.isCompleted} />
   }
 
   render() {
+    const { todos } = this.props;
     return (
       <div>
-        <section class="todoapp">
-          <header class="header">
+        <section className="todoapp">
+          <header className="header">
             <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus />
+            <input className="new-todo" placeholder="What needs to be done?" autofocus />
           </header>
-          <section class="main">
-            <input class="toggle-all" type="checkbox" />
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list"></ul>
+          <section className="main">
+            <input className="toggle-all" type="checkbox" />
+            <label htmlFor="toggle-all">Mark all as complete</label>
+            <ul className="todo-list">{todos.map(this.renderTodoItem)}</ul>
           </section>
-          <footer class="footer">
-            <span class="todo-count"></span>
-            <button class="clear-completed">Clear completed</button>
+          <footer className="footer">
+            <span className="todo-count"></span>
+            <button className="clear-completed">Clear completed</button>
           </footer>
         </section>
-        <footer class="info">
+        <footer className="info">
           <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
         </footer>
       </div>
@@ -40,9 +45,9 @@ class TodoItem extends React.Component {
     return (
       <li>
         <div className="view">
-          <input class="toggle" type="checkbox" checked={isCompleted} />
+          <input className="toggle" type="checkbox" checked={isCompleted} />
           <label>{title}</label>
-          <button class="destroy"></button>
+          <button className="destroy"></button>
         </div>
       </li>
     );
