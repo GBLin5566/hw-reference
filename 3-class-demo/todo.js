@@ -2,7 +2,10 @@
 class TodoApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      newTodo: '',
+      todos: []
+    };
   }
 
   renderTodoItem(item) {
@@ -10,13 +13,18 @@ class TodoApp extends React.Component {
   }
 
   render() {
-    const { todos } = this.props;
+    const { newTodo, todos } = this.state;
     return (
       <div>
         <section className="todoapp">
           <header className="header">
             <h1>todos</h1>
-            <input className="new-todo" placeholder="What needs to be done?" autofocus />
+            <input
+              className="new-todo"
+              placeholder="What needs to be done?"
+              autofocus
+              value={newTodo}
+            />
           </header>
           <section className="main">
             <input className="toggle-all" type="checkbox" />
@@ -37,7 +45,6 @@ class TodoApp extends React.Component {
 }
 
 
-
 // todo 項目
 class TodoItem extends React.Component {
   render() {
@@ -54,6 +61,12 @@ class TodoItem extends React.Component {
   }
 }
 
+TodoItem.PropTypes = {
+  title: React.PropTypes.string,
+  isCompleted: React.PropTypes.bool
+};
+
+
 // 更新 count 顯示
 class CountDisplay extends React.Component {
   render() {
@@ -67,6 +80,10 @@ class CountDisplay extends React.Component {
     }
   }
 }
+
+CountDisplay.propTypes = {
+  count: React.PropTypes.number
+};
 
 // 初始化 counter
 CountDisplay.defaultProps = {
