@@ -1,3 +1,7 @@
+const React = require('react');
+const TodoItem = require('./TodoItem');
+const CountDisplay = require('./CountDisplay');
+
 // TodoApp: 原本的 HTML
 class TodoApp extends React.Component {
   constructor(props) {
@@ -92,56 +96,4 @@ class TodoApp extends React.Component {
   }
 }
 
-
-// todo 項目
-class TodoItem extends React.Component {
-  render() {
-    const { index, title, isCompleted, onChange, onDestroy } = this.props;
-    return (
-      <li>
-        <div className="view">
-          <input
-            className="toggle"
-            type="checkbox"
-            checked={isCompleted}
-            onChange={(event) => onChange(event, index)}
-          />
-          <label>{title}</label>
-          <button className="destroy" onClick={(event) => onDestroy(index)}></button>
-        </div>
-      </li>
-    );
-  }
-}
-
-TodoItem.PropTypes = {
-  title: React.PropTypes.string,
-  isCompleted: React.PropTypes.bool
-};
-
-
-// 更新 count 顯示
-class CountDisplay extends React.Component {
-  render() {
-    const { count } = this.props;
-    if (count > 1) {
-      return <span><strong>{count}</strong> items left</span>;
-    } else if (count === 1) {
-      return <span><strong>1</strong>item left</span>;
-    } else {
-      return <span>no item</span>;
-    }
-  }
-}
-
-CountDisplay.propTypes = {
-  count: React.PropTypes.number
-};
-
-// 初始化 counter
-CountDisplay.defaultProps = {
-  count: 0
-};
-
-
-ReactDOM.render(<TodoApp />, document.getElementById('root'));
+module.exports = TodoApp;
