@@ -3,10 +3,19 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
-  entry: './src/index',
+  entry: [
+    'webpack-hot-middleware/client',
+    './src/index'
+  ],
   output: {
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/static/'
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
+  ],
   module: {
     loaders: [{
       test: /\.js$/,
