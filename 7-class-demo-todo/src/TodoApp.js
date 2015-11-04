@@ -1,6 +1,8 @@
 const React = require('react');
 const TodoItem = require('./TodoItem');
 const CountDisplay = require('./CountDisplay');
+const Rebase = require('re-base');
+const base = Rebase.createClass('https://web-todo.firebaseio.com');
 
 // TodoApp: 原本的 HTML
 class TodoApp extends React.Component {
@@ -10,6 +12,18 @@ class TodoApp extends React.Component {
       newTodo: '',
       todos: []
     };
+  }
+
+  componentDidMount() {
+    this. ref = base.syncState(`todos`, {
+      context: this,
+      state: 'todos',
+      asArray: true
+    });
+  }
+
+  componentWillUnmount(){
+    base.removeBinding(this.ref);
   }
 
   // 處理 todo 改變的事件
