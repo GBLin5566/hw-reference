@@ -15,14 +15,14 @@ class TodoApp extends React.Component {
   }
 
   componentDidMount() {
-    this. ref = base.syncState(`todos`, {
+    this.ref = base.syncState(`todos`, {
       context: this,
       state: 'todos',
       asArray: true
     });
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     base.removeBinding(this.ref);
   }
 

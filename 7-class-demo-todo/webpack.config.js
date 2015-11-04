@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/7-class-demo-todo/dist/'
+    publicPath: '/hw-reference/7-class-demo-todo/dist/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
