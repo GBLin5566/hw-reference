@@ -1,42 +1,12 @@
 const React = require('react');
 const ThreadItem = require('./ThreadItem');
 const MessageItem = require('./MessageItem');
+const Rebase = require('re-base');
+const base = Rebase.createClass('https://web-chatapp.firebaseio.com');
 
 const initialState = {
   newMessage: '',
-  threads: [
-    {
-      target: {
-        name: 'Elsa',
-        profilePic: 'http://lorempixel.com/50/50/people/1'
-      },
-      messages: [
-        { fromMe:false, text: '對啊', time: '12:27' },
-        { fromMe:false, text: '試著', time: '12:27' },
-        { fromMe:false, text: '靠左邊嘛', time: '12:27' },
-        { fromMe:true, text: '換我了', time: '12:27' },
-        { fromMe:true, text: '有看到嗎', time: '12:27' },
-      ]
-    },
-    {
-      target: {
-        name: 'Katharine',
-        profilePic: 'http://lorempixel.com/50/50/people/9'
-      },
-      messages: [
-        { fromMe:false, text: '對啊', time: '12:27' },
-      ]
-    },
-    {
-      target: {
-        name: 'Marshall',
-        profilePic: 'http://lorempixel.com/50/50/people/7'
-      },
-      messages: [
-        { fromMe:false, text: '對啊', time: '12:27' },
-      ]
-    }
-  ],
+  threads: [],
   currentIndex: 0
 };
 
@@ -46,6 +16,18 @@ class ChatApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = initialState;
+  }
+
+  componentDidMount() {
+    this.ref = base.syncState(`threads`, {
+      context: this,
+      state: 'threads',
+      asArray: true
+    });
+  }
+
+  componentWillUnmount(){
+    base.removeBinding(this.ref);
   }
 
   handleThreadItemClick(index) {
@@ -106,8 +88,8 @@ class ChatApp extends React.Component {
   render() {
     const { newMessage, threads, currentIndex } = this.state;
     const targetThread = threads[currentIndex];
-    const targetName = targetThread.target.name;
-    const messages = targetThread.messages;
+    const targetName = (targetThread && targetThread.target.name) || 'Loading...';
+    const messages = (targetThread && targetThread.messages) || [];
     return (
       <div className="chat-app clearfix">
         <div className="chat-app_left">
