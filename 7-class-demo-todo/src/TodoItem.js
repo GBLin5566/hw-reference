@@ -21,7 +21,7 @@ class TodoItem extends React.Component {
   }
 }
 
-TodoItem.PropTypes = {
+TodoItem.propTypes = {
   title: React.PropTypes.string,
   isCompleted: React.PropTypes.bool
 };
